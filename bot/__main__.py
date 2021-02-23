@@ -28,12 +28,12 @@ def stats(update, context):
     cpuUsage = psutil.cpu_percent(interval=0.5)
     memory = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    stats = f'<b>Bot Uptime ⌚:</b> {currentTime}\n' \
-            f'<b>Total disk space🗄️:</b> {total}\n' \
-            f'<b>Used 🗃️:</b> {used}  ' \
-            f'<b>Free 🗃️:</b> {free}\n\n' \
-            f'📇Data Usage📇\n<b>Uploaded :</b> {sent}\n' \
-            f'<b>Downloaded:</b> {recv}\n\n' \
+    stats = f'<b>Bot Menyala ⌚:</b> {currentTime}\n' \
+            f'<b>Sisa Penyimpanan🗄️:</b> {total}\n' \
+            f'<b>Memory bot terpakai 🗃️:</b> {used}  ' \
+            f'<b>Ruang Kosong Bot 🗃️:</b> {free}\n\n' \
+            f'📇Pengunaan data bot📇\n<b>Uploaded :</b> {sent}\n' \
+            f'<b>Yang lagi didownload:</b> {recv}\n\n' \
             f'<b>CPU 🖥️:</b> {cpuUsage}% ' \
             f'<b>RAM ⛏️:</b> {memory}% ' \
             f'<b>Disk 🗄️:</b> {disk}%'
@@ -75,31 +75,31 @@ def log(update, context):
 @run_async
 def bot_help(update, context):
     help_string = f'''
-/{BotCommands.HelpCommand}: To get this message
+/{BotCommands.HelpCommand}: Tutor botnya
 
-/{BotCommands.MirrorCommand} [download_url][magnet_link]: Start mirroring the link to google drive
+/{BotCommands.MirrorCommand} [download_url][magnet_link]: Mulai Mirror bot dengan perintah /mirror (link mega/google drive/zippy/mediafire)
 
-/{BotCommands.UnzipMirrorCommand} [download_url][magnet_link] : starts mirroring and if downloaded file is any archive , extracts it to google drive
+/{BotCommands.UnzipMirrorCommand} [download_url][magnet_link] : Sama kayak perintah mirror tapi bedanya ini langsung di ekstrak
 
-/{BotCommands.TarMirrorCommand} [download_url][magnet_link]: start mirroring and upload the archived (.tar) version of the download
+/{BotCommands.TarMirrorCommand} [download_url][magnet_link]: Sama kayak perintah mirror tapi bedanya ini menjadikan file ekstensi .tar
 
-/{BotCommands.WatchCommand} [youtube-dl supported link]: Mirror through youtube-dl. Click /{BotCommands.WatchCommand} for more help.
+/{BotCommands.WatchCommand} [youtube-dl supported link]: Nge download video dari youtube. Click /{BotCommands.WatchCommand} for more help.
 
-/{BotCommands.TarWatchCommand} [youtube-dl supported link]: Mirror through youtube-dl and tar before uploading
+/{BotCommands.TarWatchCommand} [youtube-dl supported link]: Sama kayak perintah watch tp bedanya ini diubah ke ekstensi .tar
 
-/{BotCommands.CancelMirror} : Reply to the message by which the download was initiated and that download will be cancelled
+/{BotCommands.CancelMirror} : Ngebatalin Mirror
 
-/{BotCommands.StatusCommand}: Shows a status of all the downloads
+/{BotCommands.StatusCommand}: Ngeliat status mirror
 
-/{BotCommands.ListCommand} [search term]: Searches the search term in the Google drive, if found replies with the link
+/{BotCommands.ListCommand} [search term]: Mencari list di google drive
 
-/{BotCommands.StatsCommand}: Show Stats of the machine the bot is hosted on
+/{BotCommands.StatsCommand}: Menampilkan system bot
 
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Can only be invoked by owner of the bot)
+/{BotCommands.AuthorizeCommand}: Supaya bot bisa digunain oleh orang lain/grup
 
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports
+/{BotCommands.LogCommand}: Log bot 
 
-/{BotCommands.SpeedCommand} : Check Internet Speed Of The Host
+/{BotCommands.SpeedCommand} : Cek kecepatan internet
 
 '''
     sendMessage(help_string, context.bot, update)
