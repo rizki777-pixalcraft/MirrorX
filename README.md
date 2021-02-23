@@ -121,7 +121,7 @@ log - Bot Log [owner only]
 
 # How to deploy in Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Satriouz/python-aria-mirror-bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CrysTalesiaS/MirrorX)
 
 Hit the deploy to heroku button and follow the further instructions in the screen:
 
