@@ -19,8 +19,8 @@ class MirrorStatus:
     STATUS_WAITING = "Antri dulu ya :)...📝"
     STATUS_FAILED = "Gagal 🚫. Menghapus History"
     STATUS_CANCELLED = "Batal ❎"
-    STATUS_ARCHIVING = "Archiving...🔐"
-    STATUS_EXTRACTING = "Extracting...📂"
+    STATUS_ARCHIVING = "Meng Arsip...🔐"
+    STATUS_EXTRACTING = "Ekstrak file...📂"
 
 
 PROGRESS_MAX_SIZE = 100 // 8
@@ -109,7 +109,7 @@ def get_readable_message():
                 except:
                     pass
             if download.status() == MirrorStatus.STATUS_DOWNLOADING:
-                msg += f"\n<b>To Stop 👉 :</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"                 
+                msg += f"\n<b>Biar Berhenti 👉 :</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"                 
             msg += "\n\n"
         return msg
 
