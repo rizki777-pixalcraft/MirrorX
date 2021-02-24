@@ -55,7 +55,7 @@ class MirrorListener(listeners.MirrorListeners):
 
     def onDownloadComplete(self):
         with download_dict_lock:
-            LOGGER.info(f"Download completed: {download_dict[self.uid].name()}")
+            LOGGER.info(f"File yang kamu download berhasil: {download_dict[self.uid].name()}")
             download = download_dict[self.uid]
             name = download.name()
             size = download.size_raw()
@@ -67,8 +67,8 @@ class MirrorListener(listeners.MirrorListeners):
                     download_dict[self.uid] = TarStatus(name, m_path, size)
                 path = fs_utils.tar(m_path)
             except FileNotFoundError:
-                LOGGER.info('File to archive not found!')
-                self.onUploadError('Internal error occurred!!')
+                LOGGER.info('File yang pengen di arsip gk ada')
+                self.onUploadError('Ada masalah internal nih')
                 return
         elif self.extract:
             download.is_extracting = True
@@ -88,14 +88,14 @@ class MirrorListener(listeners.MirrorListeners):
                     threading.Thread(target=os.remove, args=(m_path,)).start()
                     LOGGER.info(f"Deleting archive : {m_path}")
                 else:
-                    LOGGER.warning('Unable to extract archive! Uploading anyway')
+                    LOGGER.warning('Nggk bisa diarsip, aku upload aja ya')
                     path = f'{DOWNLOAD_DIR}{self.uid}/{name}'
                 LOGGER.info(
                     f'got path : {path}'
                 )
 
             except NotSupportedExtractionArchive:
-                LOGGER.info("Not any valid archive, uploading file as it is.")
+                LOGGER.info("Arsip yang kamu kirim gk bisa, aku kirim aja ya")
                 path = f'{DOWNLOAD_DIR}{self.uid}/{name}'
         else:
             path = f'{DOWNLOAD_DIR}{self.uid}/{name}'
@@ -103,7 +103,7 @@ class MirrorListener(listeners.MirrorListeners):
         if up_name == "None":
             up_name = "".join(os.listdir(f'{DOWNLOAD_DIR}{self.uid}/'))
         up_path = f'{DOWNLOAD_DIR}{self.uid}/{up_name}'
-        LOGGER.info(f"Upload Name : {up_name}")
+        LOGGER.info(f"Bentar lagi upload file yang kamu minta : {up_name}")
         drive = gdriveTools.GoogleDriveHelper(up_name, self)
         size = fs_utils.get_path_size(up_path)
         upload_status = UploadStatus(drive, size, self)
@@ -120,7 +120,7 @@ class MirrorListener(listeners.MirrorListeners):
             try:
                 download = download_dict[self.uid]
                 del download_dict[self.uid]
-                LOGGER.info(f"Deleting folder: {download.path()}")
+                LOGGER.info(f"Bentar aku delete in: {download.path()}")
                 fs_utils.clean_download(download.path())
                 LOGGER.info(str(download_dict))
             except Exception as e:
@@ -131,7 +131,7 @@ class MirrorListener(listeners.MirrorListeners):
             uname = f"@{self.message.from_user.username}"
         else:
             uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
-        msg = f"{uname} your download has been stopped due to: {error}"
+        msg = f"{uname} Link download yang kamu kirim ga bisa nih :( karena: {error}"
         sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()
@@ -146,13 +146,13 @@ class MirrorListener(listeners.MirrorListeners):
 
     def onUploadComplete(self, link: str, size):
         with download_dict_lock:
-            msg = f'<b>Filename : </b><code>{download_dict[self.uid].name()}</code>\n<b>Size : </b><code>{size}</code>'
+            msg = f'<b>Nama File : </b><code>{download_dict[self.uid].name()}</code>\n<b>Size : </b><code>{size}</code>'
             buttons = button_build.ButtonMaker()
             if SHORTENER is not None and SHORTENER_API is not None:
                 surl = requests.get('https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, link)).text
-                buttons.buildbutton("💾Drive Link💾", surl)
+                buttons.buildbutton("💾Ini Link Google Drivenya💾", surl)
             else:
-                buttons.buildbutton("💾Drive Link💾", link)
+                buttons.buildbutton("💾Ini Link Google Drivenya💾", link)
             LOGGER.info(f'Done Uploading {download_dict[self.uid].name()}')
             if INDEX_URL is not None:
                 share_url = requests.utils.requote_uri(f'{INDEX_URL}/{download_dict[self.uid].name()}')
@@ -160,9 +160,9 @@ class MirrorListener(listeners.MirrorListeners):
                     share_url += '/'
                 if SHORTENER is not None and SHORTENER_API is not None:
                     siurl = requests.get('https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, share_url)).text
-                    buttons.buildbutton("🚀Index Link🚀", siurl)
+                    buttons.buildbutton("🚀Ini Link Indexnya🚀", siurl)
                 else:
-                    buttons.buildbutton("🚀Index Link🚀", share_url)
+                    buttons.buildbutton("🚀Ini Link Indexnya🚀", share_url)
             if BUTTON_THREE_NAME is not None and BUTTON_THREE_URL is not None:
                 buttons.buildbutton(f"{BUTTON_THREE_NAME}", f"{BUTTON_THREE_URL}")
             if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
@@ -174,7 +174,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\nReq. By 👉 : {uname}'
+                msg += f'\n\nRequest/Mirror dari 👉 : {uname}'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
@@ -250,7 +250,7 @@ def _mirror(bot, update, isTar=False, extract=False):
     else:
         tag = None
     if not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
-        sendMessage('No download source provided', bot, update)
+        sendMessage('Link yang kamu mirror gk support/hangus', bot, update)
         return
 
     try:
@@ -260,7 +260,7 @@ def _mirror(bot, update, isTar=False, extract=False):
     listener = MirrorListener(bot, update, pswd, isTar, tag, extract)
     if bot_utils.is_mega_link(link):
         if BLOCK_MEGA_LINKS:
-            sendMessage("Mega Links Are Blocked ✋", bot, update)
+            sendMessage("Link mega lagi diblok ✋", bot, update)
         else:
             mega_dl = MegaDownloadHelper()
             mega_dl.add_download(link, f'{DOWNLOAD_DIR}/{listener.uid}/', listener)
