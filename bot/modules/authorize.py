@@ -42,9 +42,9 @@ def unauthorize(update,context):
         chat_id = update.effective_chat.id
         if chat_id in AUTHORIZED_CHATS:
             AUTHORIZED_CHATS.remove(chat_id)
-            msg = 'Chat unauthorized'
+            msg = 'Orang/Grup nya udh diizinin pake bot ini'
         else:
-            msg = 'Already unauthorized chat'
+            msg = 'Orang/Grup ini sudh diizinin pake bot ini'
     else:
         # Trying to authorize someone in specific
         user_id = reply_message.from_user.id
