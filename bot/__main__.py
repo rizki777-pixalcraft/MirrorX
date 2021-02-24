@@ -42,16 +42,16 @@ def stats(update, context):
 
 @run_async
 def start(update, context):
-    start_string = f'''
-This is a bot which can mirror all your links to Google drive!
-Type /{BotCommands.HelpCommand} to get a list of available commands
+    start_Thisstring = f'''
+    Iini bot bisa mirror link gd/mediafire/zippy/mega
+Type /{BotCommands.HelpCommand} kalo pengen liat perintah bot
 '''
     sendMessage(start_string, context.bot, update)
 
 
 @run_async
 def restart(update, context):
-    restart_message = sendMessage("Restarting, Please wait!", context.bot, update)
+    restart_message = sendMessage("Bentar lagi restart", context.bot, update)
     # Save restart message object in order to reply to it after restarting
     fs_utils.clean_all()
     with open('restart.pickle', 'wb') as status:
