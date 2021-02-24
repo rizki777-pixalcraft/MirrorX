@@ -174,7 +174,7 @@ class GoogleDriveHelper:
                     if reason == 'userRateLimitExceeded' or reason == 'dailyLimitExceeded':
                         if USE_SERVICE_ACCOUNTS:
                             self.switchServiceAccount()
-                            LOGGER.info(f"Got: {reason}, Trying Again.")
+                            LOGGER.info(f"Dapet : {reason}, Mulai lagi.")
                             return self.upload_file(file_path, file_name, mime_type, parent_id)
                     else:
                         raise err
@@ -191,12 +191,12 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google drive ID could not be found in the provided link"
+            msg = "Google drive ID gk ditemukan"
             return msg
         msg = ''
         try:
             res = self.__service.files().delete(fileId=file_id, supportsTeamDrives=IS_TEAM_DRIVE).execute()
-            msg = "Successfully deleted"
+            msg = "Sudah didelete"
         except HttpError as err:
             LOGGER.error(str(err))
             if "File not found" in str(err):
