@@ -10,7 +10,7 @@ from telegram.ext import CallbackContext, Filters, run_async, CommandHandler
 @run_async
 def speedtst(update, context):
     message = update.effective_message
-    ed_msg = message.reply_text("Running Speed Test . . . 💨")
+    ed_msg = message.reply_text("Tes Kecepatan lagi berjalan . . . 💨")
     test = speedtest.Speedtest()
     test.get_best_server()
     test.download()
@@ -18,13 +18,13 @@ def speedtst(update, context):
     test.results.share()
     result = test.results.dict()
     context.bot.editMessageText(
-        "🔻 Download Speed : "
+        "🔻 Kecepatan Download : "
         f"{speed_convert(result['download'])}\n"
-        "🔺 Upload Speed : "
+        "🔺 Kecepatan Upload : "
         f"{speed_convert(result['upload'])}\n"
-        "📶 Ping : "
+        "📶 Kekuatan Jaringan : "
         f"{result['ping']}\n"
-        "🏬 ISP : "
+        "🏬 Server yang digunain : "
         f"{result['client']['isp']}",
         update.effective_chat.id,
         ed_msg.message_id,
