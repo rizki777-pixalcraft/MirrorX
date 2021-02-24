@@ -31,13 +31,13 @@ class AriaDownloadHelper(DownloadHelper):
             gdrive = GoogleDriveHelper(None)
             smsg, button = gdrive.drive_list(sname)
           if smsg:
-              dl.getListener().onDownloadError(f'😡😡File is already available in drive. You should have search before mirror any file. You might get ban if you do this again. This download has been stopped.\n\n')
-              sendMarkup(" Here are the search results:👇👇", dl.getListener().bot, dl.getListener().update, button)
+              dl.getListener().onDownloadError(f'😡😡File nya udh ada di google drive ya, kamu bisa cari dengan mengetik /daftar (yg pengen kamu cari), kamu soam = ban\n\n')
+              sendMarkup(" Nih yang kamu cari:👇👇", dl.getListener().bot, dl.getListener().update, button)
               aria2.remove([download])
           return
         update_all_messages()
     def __onDownloadComplete(self, api: API, gid):
-        LOGGER.info(f"onDownloadComplete: {gid}")
+        LOGGER.info(f"onDownload Selesai: {gid}")
         dl = getDownloadByGid(gid)
         download = api.get_download(gid)
         if download.followed_by_ids:
@@ -56,13 +56,13 @@ class AriaDownloadHelper(DownloadHelper):
     def __onDownloadPause(self, api, gid):
         LOGGER.info(f"onDownloadPause: {gid}")
         dl = getDownloadByGid(gid)
-        dl.getListener().onDownloadError('Download stopped by user!')
+        dl.getListener().onDownloadError('Download nya error')
 
     @new_thread
     def __onDownloadStopped(self, api, gid):
         LOGGER.info(f"onDownloadStop: {gid}")
         dl = getDownloadByGid(gid)
-        if dl: dl.getListener().onDownloadError('Download stopped by user!')
+        if dl: dl.getListener().onDownloadError('Download nya error')
 
     @new_thread
     def __onDownloadError(self, api, gid):
