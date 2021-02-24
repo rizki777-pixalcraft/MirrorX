@@ -86,7 +86,7 @@ class MirrorListener(listeners.MirrorListeners):
                     archive_result = subprocess.run(["extract", m_path])
                 if archive_result.returncode == 0:
                     threading.Thread(target=os.remove, args=(m_path,)).start()
-                    LOGGER.info(f"Deleting archive : {m_path}")
+                    LOGGER.info(f"Arsip lagi didelete: {m_path}")
                 else:
                     LOGGER.warning('Nggk bisa diarsip, aku upload aja ya')
                     path = f'{DOWNLOAD_DIR}{self.uid}/{name}'
