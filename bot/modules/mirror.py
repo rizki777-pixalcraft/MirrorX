@@ -146,7 +146,7 @@ class MirrorListener(listeners.MirrorListeners):
 
     def onUploadComplete(self, link: str, size):
         with download_dict_lock:
-            msg = f'<b>Nama File : </b><code>{download_dict[self.uid].name()}</code>\n<b>Size : </b><code>{size}</code>'
+            msg = f'<b>Nama File : </b><code>{download_dict[self.uid].name()}</code>\n<b>Gede Filenya : </b><code>{size}</code>'
             buttons = button_build.ButtonMaker()
             if SHORTENER is not None and SHORTENER_API is not None:
                 surl = requests.get('https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, link)).text
@@ -174,7 +174,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\nRequest/Mirror dari 👉 : {uname}'
+                msg += f'\n\nMakasih {uname} udah gunain/request dari bot aku'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
