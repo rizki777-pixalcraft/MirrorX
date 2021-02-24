@@ -250,7 +250,7 @@ def _mirror(bot, update, isTar=False, extract=False):
     else:
         tag = None
     if not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
-        sendMessage('Link yang kamu mirror gk support/hangus', bot, update)
+        sendMessage('Kirim Linknya dulu ya sayangg', bot, update)
         return
 
     try:
