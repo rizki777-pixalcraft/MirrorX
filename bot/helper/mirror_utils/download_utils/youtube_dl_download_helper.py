@@ -67,11 +67,11 @@ class YoutubeDLHelper(DownloadHelper):
 
     def __onDownloadProgress(self, d):
         if self.is_cancelled:
-            raise ValueError("Cancelling Download..")
-        if d['status'] == "finished":
+            raise ValueError("Download dibatalin krn error")
+        if d['status'] == "Selesai":
             if self.is_playlist:
                 self.last_downloaded = 0
-        elif d['status'] == "downloading":
+        elif d['status'] == "Lagi didownload":
             with self.__resource_lock:
                 self.__download_speed = d['speed']
                 try:
@@ -147,8 +147,8 @@ class YoutubeDLHelper(DownloadHelper):
                     return
             self.__onDownloadComplete()
         except ValueError:
-            LOGGER.info("Download Cancelled by User!")
-            self.onDownloadError("Download Cancelled by User!")
+            LOGGER.info("Download dicancel krn error")
+            self.onDownloadError("Download dicancel krn error")
 
     def add_download(self, link, path, qual, name):
         pattern = '^.*(youtu\.be\/|youtube.com\/)(playlist?)'
@@ -156,7 +156,7 @@ class YoutubeDLHelper(DownloadHelper):
             self.opts['ignoreerrors'] = True
         self.__onDownloadStart()
         self.extractMetaData(link, qual, name)
-        LOGGER.info(f"Downloading with YT-DL: {link}")
+        LOGGER.info(f"Downloading dengan link youtube, sabar ya dulu : {link}")
         self.__gid = f"{self.vid_id}{self.__listener.uid}"
         if qual == "audio":
           self.opts['format'] = 'bestaudio/best'
