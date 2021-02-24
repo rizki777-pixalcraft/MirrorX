@@ -17,11 +17,11 @@ def _watch(bot: Bot, update, isTar=False):
     try:
         link = message_args[1]
     except IndexError:
-        msg = f"/{BotCommands.WatchCommand} [yt_dl supported link] [quality] |[CustomName] to mirror with youtube_dl.\n\n"
-        msg += "<b>Note :- Quality and custom name are optional</b>\n\nExample of quality :- audio, 144, 240, 360, 480, 720, 1080, 2160."
-        msg += "\n\nIf you want to use custom filename, plz enter it after |"
-        msg += f"\n\nExample :-\n<code>/{BotCommands.WatchCommand} https://youtu.be/ocX2FN1nguA 720 |My video bro</code>\n\n"
-        msg += "This file will be downloaded in 720p quality and it's name will be <b>My video bro</b>"
+        msg = f"/{BotCommands.WatchCommand} [Bisa pake link youtube] [Kualitas] |[Kustomnama] Biar di mirror in pake link youtube.\n\n"
+        msg += "<b>Note :- Kualitas dan kustom nama itu pelengkap aja ya</b>\n\nMisalkan aja :- audio, 144, 240, 360, 480, 720, 1080, 2160."
+        msg += "\n\nKalo pengen pake Nama kustom bisa dipake sehabis |"
+        msg += f"\n\nExample :-\n<code>/{BotCommands.WatchCommand} https://youtu.be/ocX2FN1nguA 720 |Ini videoku</code>\n\n"
+        msg += "File yanh kamu minta bakalan diupload dengan kualitas 720p dengan nama<b>Ini videoku</b>"
         sendMessage(msg, bot, update)
         return
     try:
