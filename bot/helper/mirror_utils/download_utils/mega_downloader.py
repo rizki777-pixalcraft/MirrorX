@@ -56,10 +56,10 @@ class MegaAppListener(MegaListener):
         return self.__bytes_transferred
 
     def onRequestStart(self, api, request):
-        LOGGER.info('Request start ({})'.format(request))
+        LOGGER.info('Request dimulai ({})'.format(request))
 
     def onRequestFinish(self, api, request, error):
-        LOGGER.info('Mega Request finished ({}); Result: {}'
+        LOGGER.info('Mega Request selesai ({}); Result: {}'
                     .format(request, error))
         if str(error).lower() != "no error":
             self.error = error.copy()
@@ -77,7 +77,7 @@ class MegaAppListener(MegaListener):
             self.continue_event.set()
 
     def onRequestTemporaryError(self, api, request, error: MegaError):
-        LOGGER.info(f'Mega Request error in {error}')
+        LOGGER.info(f'Mega nya error di {error}')
         if not self.is_cancelled:
             self.listener.onDownloadError("RequestTempError: " + error.toString())
             self.is_cancelled = True
@@ -120,7 +120,7 @@ class MegaAppListener(MegaListener):
 
     def cancel_download(self):
         self.is_cancelled = True
-        self.listener.onDownloadError("Download Canceled by user")
+        self.listener.onDownloadError("Downloadnya dibatalin nih")
 
 
 class AsyncExecutor:
