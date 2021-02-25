@@ -20,16 +20,16 @@ After getting Arl token Config `ARL_TOKEN` var in heroku"""
 
 @userge.on_cmd("deezload", about={
     'header': "DeezLoader for Userge",
-    'description': "Download Songs/Albums/Playlists via "
-                   "Spotify or Deezer Links. "
-                   "\n<b>NOTE:</b> Music Quality is optional",
-    'flags': {'-sdl': "Download via Spotify Link",
-              '-ddl': "Download via Deezers Link",
-              '-dsong': "Download a Song by passing Artist Name and Song Name",
-              '-zip': "Get a zip archive for Albums/Playlist Download"},
-    'options': "Available Sound Quality: <code>FLAC | MP3_320 | MP3_256 | MP3_128</code>",
-    'usage': "{tr}deezload [flag] [link | quality (default MP3_320)]",
-    'examples': "{tr}deezload -ddl https://www.deezer.com/track/142750222 \n"
+    'description': "Download Lagu/Albums/Playlists lewat "
+                   "Spotify atau Deezer. "
+                   "\n<b>NOTE:</b> Kualitas Music itu hanya bonus",
+    'flags': {'-sdl': "Download lewat link spotify",
+              '-ddl': "Download lewat link deezer",
+              '-dsong': "Download sebuah lagu dengan mengetik judul/artis",
+              '-zip': "Zip in yang pengen kamu mirror"},
+    'Pilihan': "Kualitas tersedia <code>FLAC | MP3_320 | MP3_256 | MP3_128</code>",
+    'Penggunaan': "{tr}deezload [flag] [link | quality (standar MP3_320)]",
+    'Misal': "{tr}deezload -ddl https://www.deezer.com/track/142750222 \n"
                 "{tr}deezload -ddl https://www.deezer.com/track/3824710 FLAC \n"
                 "{tr}deezload -ddl https://www.deezer.com/album/1240787 FLAC \n"
                 "{tr}deezload -ddl -zip https://www.deezer.com/album/1240787 \n"
@@ -40,7 +40,7 @@ async def deezload(message: Message):
     if not message.flags:
         await message.edit("Hello🙂, This Plugin requires a proper flag to be passed.")
         return
-    await message.edit("Checking your Token.")
+    await message.edit("Bentar lagi cek token")
     if ARL_TOKEN is None:
         await message.edit(ARL_HELP, disable_web_page_preview=True)
         return
@@ -58,7 +58,7 @@ async def deezload(message: Message):
         to_zip = True
     d_quality = "MP3_320"
     if not message.filtered_input_str:
-        await message.edit("Olá Peru Master🙂, Tell me how to download `Nothing`")
+        await message.edit("Hadehhh link nya mana mastahh`")
         return
     input_ = message.filtered_input_str
     if '-dsong' not in flags:
@@ -69,10 +69,10 @@ async def deezload(message: Message):
                 input_link = input_
                 quality = d_quality
             else:
-                await message.edit("Invalid Syntax Detected. 🙂")
+                await message.edit("Syntax gagal 🙂")
                 return
         if not re.search(rex, input_link):
-            await message.edit("As per my Blek Mejik Regex, this link is not supported.")
+            await message.edit("Link nya ga support nih :(.")
             return
     elif '-dsong' in flags:
         try:
@@ -82,7 +82,7 @@ async def deezload(message: Message):
                 artist, song = input_.split('-')
                 quality = d_quality
             else:
-                await message.edit("🙂K!!")
+                await message.edit("Hmm")
                 return
     try:
         if '-sdl' in flags:
@@ -96,13 +96,13 @@ async def deezload(message: Message):
             elif 'album/' or 'playlist/' in input_link:
                 await batch_dl(input_link, quality, message, loader, TEMP_PATH, to_zip)
     except NoDataApi as nd:
-        await message.edit("No Data is available for input link")
+        await message.edit("Data nya ngk ada om :(")
         await Clogger.log(f"#ERROR\n\n{nd}")
     except Exception as e_r:
         await Clogger.log(f"#ERROR\n\n{e_r}")
 
     if '-dsong' in flags:
-        await message.edit(f"Searching Results for {song}")
+        await message.edit(f"Bentar lagi nyari {song}")
         try:
             track = await pool.run_in_thread(loader.download_name)(
                 artist=artist.strip(),
@@ -113,10 +113,10 @@ async def deezload(message: Message):
                 recursive_download=True,
                 not_interface=True
             )
-            await message.edit("Song found, Now Uploading 📤", del_in=5)
+            await message.edit("Lagu yang kamu cari ada, bentar lg upload 📤", del_in=5)
             await audio_upload(message, Path(track), True)
         except Exception as e_r:
-            await message.edit("Song not Found 🚫")
+            await message.edit("Lagu nya gk ada :(🚫")
             await Clogger.log(f"#ERROR\n\n{e_r}")
 
     await message.delete()
@@ -125,7 +125,7 @@ async def deezload(message: Message):
 
 async def proper_trackdl(link, qual, msg, client, dir_):
     if 'spotify' in link:
-        await msg.edit("Download Started. Wait Plox.")
+        await msg.edit("Bentar lagi download")
         track = await pool.run_in_thread(client.download_trackspo)(
             link,
             output=dir_,
@@ -134,7 +134,7 @@ async def proper_trackdl(link, qual, msg, client, dir_):
             recursive_download=True,
             not_interface=True
         )
-        await msg.edit("Download Successful.", del_in=5)
+        await msg.edit("Download Berhasil.", del_in=5)
         await audio_upload(msg, Path(track), True)
     elif 'deezer' in link:
         await msg.edit("Download Started. Wait Plox.")
@@ -146,14 +146,14 @@ async def proper_trackdl(link, qual, msg, client, dir_):
             recursive_download=True,
             not_interface=True
         )
-        await msg.edit("Download Successful.", del_in=5)
+        await msg.edit("Download Berhasil", del_in=5)
         await audio_upload(msg, Path(track), True)
 
 
 async def batch_dl(link, qual, msg, client, dir_, allow_zip):
     if 'spotify' in link:
         if 'album/' in link:
-            await msg.edit("Trying to download album 🤧")
+            await msg.edit("Bentar lagi download Album kamu🤧")
             if allow_zip:
                 _, zip_ = await pool.run_in_thread(client.download_albumspo)(
                     link,
@@ -164,7 +164,7 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=True
                 )
-                await msg.edit("Sending as Zip File 🗜")
+                await msg.edit("Kirim file yg kamu pengen jadi zip🗜")
                 await doc_upload(msg, Path(zip_), True)
             else:
                 album_list = await pool.run_in_thread(client.download_albumspo)(
@@ -175,11 +175,11 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     recursive_download=True,
                     not_interface=True,
                     zips=False)
-                await msg.edit("Uploading Tracks 📤", del_in=5)
+                await msg.edit("Unggah Track kamu📤", del_in=5)
                 for track in album_list:
                     await audio_upload(msg, Path(track), True)
         if 'playlist/' in link:
-            await msg.edit("Trying to download Playlist 🎶")
+            await msg.edit("Bentar lagi download playlist kamu 🎶")
             if allow_zip:
                 _, zip_ = await pool.run_in_thread(client.download_playlistspo)(
                     link,
@@ -190,7 +190,7 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=True
                 )
-                await msg.edit("Sending as Zip 🗜", del_in=5)
+                await msg.edit("Kirim jadi zip 🗜", del_in=5)
                 await doc_upload(msg, Path(zip_), True)
             else:
                 album_list = await pool.run_in_thread(client.download_playlistspo)(
@@ -202,13 +202,13 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=False
                 )
-                await msg.edit("Uploading Tracks 📤", del_in=5)
+                await msg.edit("Mengirim Trak📤", del_in=5)
                 for track in album_list:
                     await audio_upload(msg, Path(track), True)
 
     if 'deezer' in link:
         if 'album/' in link:
-            await msg.edit("Trying to download album 🤧")
+            await msg.edit("Bentar lagi download album kamu🤧")
             if allow_zip:
                 _, zip_ = await pool.run_in_thread(client.download_albumdee)(
                     link,
@@ -219,7 +219,7 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=True
                 )
-                await msg.edit("Uploading as Zip File 🗜", del_in=5)
+                await msg.edit("Kirim jadi zip🗜", del_in=5)
                 await doc_upload(msg, Path(zip_), True)
             else:
                 album_list = await pool.run_in_thread(client.download_albumdee)(
@@ -231,11 +231,11 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=False
                 )
-                await msg.edit("Uploading Tracks 📤", del_in=5)
+                await msg.edit("Kirim track 📤", del_in=5)
                 for track in album_list:
                     await audio_upload(msg, Path(track), True)
         elif 'playlist/' in link:
-            await msg.edit("Trying to download Playlist 🎶")
+            await msg.edit("Bentar lagi download playlist kamu")
             if allow_zip:
                 _, zip_ = await pool.run_in_thread(client.download_playlistdee)(
                     link,
@@ -246,7 +246,7 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=True
                 )
-                await msg.edit("Sending as Zip File 🗜", del_in=5)
+                await msg.edit("Kirim file jadi zip 🗜", del_in=5)
                 await doc_upload(msg, Path(zip_), True)
             else:
                 album_list = await pool.run_in_thread(client.download_playlistdee)(
@@ -258,6 +258,6 @@ async def batch_dl(link, qual, msg, client, dir_, allow_zip):
                     not_interface=True,
                     zips=False
                 )
-                await msg.edit("Uploading Tracks 📤", del_in=5)
+                await msg.edit("Kirim track📤", del_in=5)
                 for track in album_list:
                     await audio_upload(msg, Path(track), True)
