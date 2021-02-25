@@ -3,10 +3,10 @@ import asyncio
 
 import requests
 
-from userge import Config, userge, Message
+from bot import __init__
 
 
-@userge.on_cmd("usage", about={'header': "Get Dyno hours usage"})  # pylint:disable=E0602
+@userge.on_cmd("usage", about={'header': "Ngeliat sisa penggunaan dyno bulan ini"})  # pylint:disable=E0602
 async def usage(message: Message):
     """Bentar lagi ngitung dyno mu"""
     if not Config.HEROKU_APP:
