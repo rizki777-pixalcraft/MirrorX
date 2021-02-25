@@ -12,15 +12,15 @@ TEMP_DIR = "spotdl/"
 
 @userge.on_cmd("spotdl", about={
     'header': "Spotify Downloader",
-    'description': "Download Songs via Spotify Links"
-                   " or just by giving song names. ",
+    'description': "Download lagu pakai link spotify"
+                   " atau pake judul nya ",
     'usage': "{tr}spotdl [Spotify Link or Song Name]",
     'examples': "{tr}spotdl https://open.spotify.com/track/0Cy7wt6IlRfBPHXXjmZbcP"})
 async def spotify_dl(message: Message):
     if not os.path.exists(TEMP_DIR):
         os.makedirs(TEMP_DIR)
     song_or_link = message.input_str
-    await message.edit(f"`Downloading {song_or_link} ...`")
+    await message.edit(f"`Bentar lagi didownload {song_or_link} ...`")
     cmd = f"cd {TEMP_DIR} && spotdl {song_or_link}"
     runn = await Term.execute(cmd)
     while not runn.finished:
@@ -28,7 +28,7 @@ async def spotify_dl(message: Message):
         if runn.read_line and len(runn.read_line) <= Config.MAX_MESSAGE_LENGTH:
             await message.try_to_edit(f">><code>{runn.read_line}</code>")
     if len(os.listdir(TEMP_DIR)) <= 1:
-        await message.err("Download Failed.")
+        await message.err("Download gagal :(")
     else:
         await message.delete()
         for track in os.listdir(TEMP_DIR):
