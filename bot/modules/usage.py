@@ -8,9 +8,9 @@ from userge import Config, userge, Message
 
 @userge.on_cmd("usage", about={'header': "Get Dyno hours usage"})  # pylint:disable=E0602
 async def usage(message: Message):
-    """Get your account Dyno Usage"""
+    """Bentar lagi ngitung dyno mu"""
     if not Config.HEROKU_APP:
-        await message.err("Heroku App Not Found !")
+        await message.err("App heroku nya gak ada")
         return
     await message.edit("`Processing...`")
     useragent = ('Mozilla/5.0 (Linux; Android 10; SM-G975F) '
@@ -53,11 +53,11 @@ async def usage(message: Message):
 
     await asyncio.sleep(1.5)
 
-    await message.edit("**Dyno Usage:**\n\n"
+    await message.edit("**Sisa Dyno kamu:**\n\n"
                        f" -> `Dyno usage for`  **{Config.HEROKU_APP_NAME}**:\n"
                        f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
                        f"**|**  [`{AppPercentage}`**%**]"
                        "\n"
-                       " -> `Dyno hours quota remaining this month`:\n"
+                       " -> `Sisa Dyno kamu bulan ini`:\n"
                        f"     •  `{hours}`**h**  `{minutes}`**m**  "
                        f"**|**  [`{percentage}`**%**]")
