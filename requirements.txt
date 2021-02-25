@@ -20,3 +20,4 @@ appdirs
 speedtest-cli
 messages
 spotdl
+deezloader
