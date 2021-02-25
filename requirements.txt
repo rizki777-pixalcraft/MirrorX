@@ -19,4 +19,4 @@ telegraph
 appdirs
 speedtest-cli
 messages
-
+spotdl
