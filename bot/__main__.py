@@ -28,7 +28,7 @@ def stats(update, context):
     cpuUsage = psutil.cpu_percent(interval=0.5)
     memory = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    stats = f'<b>Bot Menyala ⌚:</b> {currentTime}\n' \
+    stats = f'<b>Bot Menyala Sejak ⌚:</b> {currentTime}\n' \
             f'<b>Sisa Penyimpanan🗄️:</b> {total}\n' \
             f'<b>Memory bot terpakai 🗃️:</b> {used}  ' \
             f'<b>Ruang Kosong Bot 🗃️:</b> {free}\n\n' \
