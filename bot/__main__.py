@@ -77,7 +77,7 @@ def bot_help(update, context):
     help_string = f'''
 /{BotCommands.HelpCommand}: Tutor botnya
 
-/{BotCommands.MirrorCommand} [download_url][magnet_link]: Mulai Mirror bot dengan perintah /mirror (link mega/google drive/zippy/mediafire)
+/{BotCommands.MirrorCommand} [download_url][magnet_link]: Mulai Mirror bot dengan perintah /kaca (link mega/google drive/zippy/mediafire)
 
 /{BotCommands.UnzipMirrorCommand} [download_url][magnet_link] : Sama kayak perintah mirror tapi bedanya ini langsung di ekstrak
 
@@ -101,6 +101,7 @@ def bot_help(update, context):
 
 /{BotCommands.SpeedCommand} : Cek kecepatan internet
 
+/{BotCommands.ClnCommand}: Clone link google drive
 '''
     sendMessage(help_string, context.bot, update)
 
