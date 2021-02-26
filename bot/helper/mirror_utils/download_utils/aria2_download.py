@@ -17,7 +17,7 @@ class AriaDownloadHelper(DownloadHelper):
     @new_thread
     def __onDownloadStarted(self, api, gid):
         sleep(1)
-        LOGGER.info(f"onDownloadStart: {gid}")
+        LOGGER.info(f"onMulai download : {gid}")
         dl = getDownloadByGid(gid)
         download = api.get_download(gid)
         self.name = download.name
@@ -48,30 +48,30 @@ class AriaDownloadHelper(DownloadHelper):
                 if new_download.is_torrent:
                     download_dict[dl.uid()].is_torrent = True
             update_all_messages()
-            LOGGER.info(f'Changed gid from {gid} to {new_gid}')
+            LOGGER.info(f'Ganti GID dari{gid} ke {new_gid}')
         else:
             if dl: threading.Thread(target=dl.getListener().onDownloadComplete).start()
 
     @new_thread
     def __onDownloadPause(self, api, gid):
-        LOGGER.info(f"onDownloadPause: {gid}")
+        LOGGER.info(f"onDownload di stop : {gid}")
         dl = getDownloadByGid(gid)
         dl.getListener().onDownloadError('Download nya error')
 
     @new_thread
     def __onDownloadStopped(self, api, gid):
-        LOGGER.info(f"onDownloadStop: {gid}")
+        LOGGER.info(f"onDownload di stop : {gid}")
         dl = getDownloadByGid(gid)
         if dl: dl.getListener().onDownloadError('Download nya error')
 
     @new_thread
     def __onDownloadError(self, api, gid):
         sleep(0.5) #sleep for split second to ensure proper dl gid update from onDownloadComplete
-        LOGGER.info(f"onDownloadError: {gid}")
+        LOGGER.info(f"onDownloadnyaError : {gid}")
         dl = getDownloadByGid(gid)
         download = api.get_download(gid)
         error = download.error_message
-        LOGGER.info(f"Download Error: {error}")
+        LOGGER.info(f"Downloadnya error : {error}")
         if dl: dl.getListener().onDownloadError(error)
 
     def start_listener(self):
