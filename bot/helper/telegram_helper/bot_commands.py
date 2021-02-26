@@ -20,6 +20,6 @@ class _BotCommands:
         self.WatchCommand = 'nonton'
         self.TarWatchCommand = 'tarwatch'
         self.deleteCommand = 'hapus'
-        self.Clncommand = 'cln'
+        self.Clncommand
         
 BotCommands = _BotCommands()
