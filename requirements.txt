@@ -21,3 +21,8 @@ speedtest-cli
 messages
 spotdl
 deezloader
+aiohttp
+aria2p
+hachoir
+Pillow
+https://github.com/CW4RR10R/pyrogram/archive/asyncio.zip
