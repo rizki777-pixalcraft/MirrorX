@@ -22,18 +22,13 @@ from bot.modules.help_Nekmo_ffmpeg import take_screen_shot
 from bot.modules.split_large_files import split_large_files
 from bot.modules.copy_similar_file import copy_file
 
-from bot import (
-    TG_MAX_FILE_SIZE,
-    EDIT_SLEEP_TIME_OUT,
-    DOWNLOAD_LOCATION
-)
-
 
 async def upload_to_tg(
     message,
     local_file_name,
     from_user,
     dict_contatining_uploaded_files
+
 ):
     LOGGER.info(local_file_name)
     base_file_name = os.path.basename(local_file_name)
