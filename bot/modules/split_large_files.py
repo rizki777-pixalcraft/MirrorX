@@ -18,10 +18,6 @@ import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
-from bot import (
-    MAX_TG_SPLIT_FILE_SIZE
-)
-
 
 async def split_large_files(input_file):
     working_directory = os.path.dirname(os.path.abspath(input_file))
