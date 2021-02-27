@@ -102,6 +102,8 @@ def bot_help(update, context):
 /{BotCommands.SpeedCommand} : Cek kecepatan internet
 
 /{BotCommands.CloneCommand} : Clone link Google Drive
+
+/{BotCommands.Upload_to_tgCommand} : Testing Commit, Upload ke Telegram
 '''
     sendMessage(help_string, context.bot, update)
 
