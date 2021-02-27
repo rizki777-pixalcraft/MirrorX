@@ -21,5 +21,6 @@ class _BotCommands:
         self.TarWatchCommand = 'tarwatch'
         self.deleteCommand = 'hapus'
         self.clnCommand = 'cln'
+        self.upload_to_tgCommand = 'up'
         
 BotCommands = _BotCommands()
