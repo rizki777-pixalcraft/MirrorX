@@ -121,7 +121,7 @@ log - Bot Log [owner only]
 
 # How to deploy in Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CrysTalesiaS/MirrorX)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/downsekolah/MirrorX)
 
 Hit the deploy to heroku button and follow the further instructions in the screen:
 
