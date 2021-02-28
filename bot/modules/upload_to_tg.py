@@ -12,6 +12,8 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
 
 import asyncio
+from telegram.ext import CommandHandler, run_async
+ requests
 import os
 import time
 from hachoir.metadata import extractMetadata
@@ -24,6 +26,7 @@ from bot.modules.copy_similar_file import copy_file
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper import button_build
+from.bot,events import register 
 
 async def upload_to_tg(
     message,
